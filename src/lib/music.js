@@ -170,3 +170,16 @@ export function stopSong() {
 export function setMusicMuted(muted) {
   if (el) el.muted = muted
 }
+
+// Pause when the page is hidden (tab switched, app closed, phone locked); resume on return.
+let pausedByHide = false
+document.addEventListener('visibilitychange', () => {
+  if (!el) return
+  if (document.hidden) {
+    pausedByHide = !el.paused
+    el.pause()
+  } else if (pausedByHide) {
+    pausedByHide = false
+    el.play().catch(() => {})
+  }
+})

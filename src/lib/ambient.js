@@ -168,3 +168,10 @@ export function stopAmbient() {
 export function setAmbientMuted(muted) {
   if (master && ctx) master.gain.setTargetAtTime(muted ? 0 : 1, ctx.currentTime, 0.05)
 }
+
+// Silence the ambient sound while the page is hidden.
+document.addEventListener('visibilitychange', () => {
+  if (!ctx) return
+  if (document.hidden) ctx.suspend()
+  else ctx.resume()
+})
