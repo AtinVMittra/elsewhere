@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+/* phone browsers: fit the visible screen, not the area behind the address bar */
+#root { height: 100dvh; }
+body {
+  margin: 0;
+  background: #0b0d14;
+  color: #f3f1ea;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
+button { -webkit-tap-highlight-color: transparent; }
+@layer components {
+.btn {
+  @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 py-3 text-sm font-semibold transition active:scale-[0.98] disabled:opacity-40;
+}
+.btn-primary { @apply btn bg-sun text-ink hover:brightness-110; }
+.btn-ghost { @apply btn border border-white/20 text-white hover:bg-white/10; }
+.chip { @apply rounded-full border border-white/15 px-3 py-1 text-xs text-white/80; }
+}
+
+/* keep controls clear of the notch and the home bar on phones */
+.safe-t { padding-top: max(0.75rem, env(safe-area-inset-top)); }
+.safe-b { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
